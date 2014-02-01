@@ -1,23 +1,15 @@
-Hipache-Nginx (experimental)
-============================
+Removes all of the original hipache-nginx code. 
 
-This projects is an experimental port of [Hipache](https://github.com/dotcloud/hipache)
-to nginx using the [Lua module](https://github.com/chaoslawful/lua-nginx-module).
+Bases the nginx reverse proxy Lua code on the code from the Paasmaker
+routing component instead:
 
-The project only consists of configuration files for now but it will
-evolve into a ready-to-use scalable proxy solution.
+https://github.com/paasmaker/paasmaker/blob/master/paasmaker/router
 
-1. Nginx requires the LUA module: [installation instructions](http://wiki.nginx.org/HttpLuaModule#Installation)
-2. You have to install the [lua-redis client](https://github.com/agentzh/lua-resty-redis).
+However, it uses the hipache Redis storage scheme, which is simpler than
+Paasmaker.
 
+It should generally be functioning, though I stopped working on it when
+I realized that I wouldn't be able to influence SNI negotiation via
+Lua, and therefore cannot support multiple SSL vhosts:
 
-Health-checks
--------------
-
-Dead backends won't be marked as dead in Redis, they will only
-be *announced* as dead. This is on purpose since it's possible to have a delay
-between the dead detection and the announcement with the current
-implementation.
-
-This is not a blocker for production deployment, you will need
-to monitor the "dead" channel with the [Hipache-hchecker](https://github.com/samalba/hipache-hchecker/).
+https://github.com/chaoslawful/lua-nginx-module/issues/331

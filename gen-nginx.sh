@@ -1,0 +1,1 @@
+python replace-vars.py nginx.template.cfg log_path=/tmp log_level=debug pid_path=/var/run listen_port_direct=80 redis_host=127.0.0.1 redis_port=6379 router_root=/vagrant/src listen_port_80=80 listen_port_443=443 > nginx.cfg
